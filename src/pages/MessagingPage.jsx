@@ -1,30 +1,18 @@
-import { useMemo, useState } from 'react'
+import { useEffect } from 'react'
 import { Layout } from '../layouts'
-import { users as usersMock } from '../mocks'
-import { useModalStore } from '../hooks'
+import { useModalStore, useReceiversStore, useUsersStore } from '../hooks'
 
 export const MessagingPage = () => {
-  const [users, setUsers] = useState(usersMock)
-  const hasUsersToSendMessages = useMemo(() => {
-    const selectedUsers = users.filter((user) => user.selected)
-
-    return selectedUsers.length !== 0
-  }, [users])
+  const { users, startLoadingUsers } = useUsersStore()
+  const { receivers, hasReceivers, toggleReceiver } = useReceiversStore()
   const { openModal } = useModalStore()
 
-  const _handleSelectionToggle = (currentToggledUser) => () => {
-    const usersWithToggledOne = users.map((user) => {
-      if (user.id === currentToggledUser.id) {
-        return {
-          ...user,
-          selected: !user.selected
-        }
-      }
+  useEffect(() => {
+    startLoadingUsers()
+  }, [])
 
-      return { ...user }
-    })
-
-    setUsers(usersWithToggledOne)
+  const _handleToggle = (toggledUser) => () => {
+    toggleReceiver(toggledUser)
   }
 
   const _handleSendMessageElementClick = () => {
@@ -40,14 +28,14 @@ export const MessagingPage = () => {
           users.map((user) => (
             <article
               key={ user.id }
-              onClick={_handleSelectionToggle(user)}
+              onClick={_handleToggle(user)}
               className='flex gap-4 items-center p-4 bg-slate-200 hover:bg-slate-300 cursor-pointer'
             >
               <section>
                 <input
                   type='checkbox'
-                  onChange={_handleSelectionToggle(user)}
-                  checked={Boolean(user.selected)}
+                  onChange={_handleToggle(user)}
+                  checked={ receivers.some((receiver) => receiver.id === user.id) }
                   className='w-4 h-4'
                 />
               </section>
@@ -60,7 +48,7 @@ export const MessagingPage = () => {
       </section>
 
       {
-        (hasUsersToSendMessages) && <button
+        (hasReceivers) && <button
           onClick={_handleSendMessageElementClick}
           className='fixed bottom-4 right-4 px-3 py-2 bg-blue-600 hover:bg-blue-800 transition-colors text-white font-bold'
         >
