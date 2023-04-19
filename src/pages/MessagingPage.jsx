@@ -48,12 +48,13 @@ export const MessagingPage = () => {
       </section>
 
       {
-        (hasReceivers) && <button
-          onClick={_handleSendMessageElementClick}
-          className='fixed bottom-4 right-4 px-3 py-2 bg-blue-600 hover:bg-blue-800 transition-colors text-white font-bold'
-        >
-          Enviar mensaje
-        </button>
+        (hasReceivers) &&
+          <button
+            onClick={_handleSendMessageElementClick}
+            className='fixed bottom-4 right-4 px-3 py-2 bg-blue-600 hover:bg-blue-800 transition-colors text-white font-bold'
+          >
+            Enviar mensaje
+          </button>
       }
     </Layout>
   )
