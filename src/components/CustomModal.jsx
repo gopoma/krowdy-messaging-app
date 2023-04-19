@@ -4,8 +4,9 @@ import { useModalStore } from '../hooks/useModalStore'
 
 export const CustomModal = () => {
   const [position, setPosition] = useState(1)
-  const [selectedMessageType, setSelectedMessageType] = useState('')
   const { closeModal } = useModalStore()
+  const [selectedMessageType, setSelectedMessageType] = useState('')
+  const [selectedChannels, setSelectedChannels] = useState(new Set())
 
   const _handleGoNext = () => {
     setPosition((prevPosition) => {
@@ -21,6 +22,20 @@ export const CustomModal = () => {
 
   const _handleSelectedMessateTypeChange = (messageType) => () => {
     setSelectedMessageType(messageType)
+  }
+
+  const _handleToggleSelectedChannel = (channel) => () => {
+    setSelectedChannels((prevSelectedChannels) => {
+      const tmp = new Set(prevSelectedChannels)
+
+      if (tmp.has(channel)) {
+        tmp.delete(channel)
+      } else {
+        tmp.add(channel)
+      }
+
+      return new Set(tmp)
+    })
   }
 
   const _handleCloseModal = () => {
@@ -43,7 +58,7 @@ export const CustomModal = () => {
               >
                 <input
                   type='radio'
-                  name='MessageType'
+                  name='messageType'
                   value='invitation'
                   id='invitation'
                   checked={selectedMessageType === 'invitation'}
@@ -63,7 +78,7 @@ export const CustomModal = () => {
               >
                 <input
                   type='radio'
-                  name='MessageType'
+                  name='messageType'
                   value='reminder'
                   id='reminder'
                   checked={selectedMessageType === 'reminder'}
@@ -83,7 +98,7 @@ export const CustomModal = () => {
               >
                 <input
                   type='radio'
-                  name='MessageType'
+                  name='messageType'
                   value='custom'
                   id='custom'
                   checked={selectedMessageType === 'custom'}
@@ -121,9 +136,58 @@ export const CustomModal = () => {
     }
     case 2: {
       component = <>
-        <section>
-          <button onClick={_handleGoBack}>Go to 2</button>
-          <button onClick={_handleGoNext}>Go to 3</button>
+        <section className='p-4 flex flex-col gap-4'>
+          <h3>Selección de canales</h3>
+          <section>
+            <div
+              onClick={_handleToggleSelectedChannel('email')}
+            >
+              <input
+                type='checkbox'
+                id='email'
+                checked={selectedChannels.has('email')}
+                onChange={_handleToggleSelectedChannel('email')}
+              />
+              <label>Correo electrónico</label>
+            </div>
+            <div
+              onClick={_handleToggleSelectedChannel('textMessage')}
+            >
+              <input
+                type='checkbox'
+                id='textMessage'
+                checked={selectedChannels.has('textMessage')}
+                onChange={_handleToggleSelectedChannel('textMessage')}
+              />
+              <label htmlFor='textMessage'>Mensaje de texto</label>
+            </div>
+            <div
+              onClick={_handleToggleSelectedChannel('whatsapp')}
+            >
+              <input
+                type='checkbox'
+                id='whatsapp'
+                checked={selectedChannels.has('whatsapp')}
+                onChange={_handleToggleSelectedChannel('whatsapp')}
+              />
+              <label htmlFor='whatsapp'>Whatsapp</label>
+            </div>
+          </section>
+          <section className='flex justify-end gap-2'>
+            <button
+              onClick={_handleGoBack}
+              className='px-3 py-2 bg-slate-400'
+            >
+              Atrás
+            </button>
+            <button
+              disabled={selectedChannels.size === 0}
+              onClick={_handleGoNext}
+              className='px-3 py-2 bg-slate-400 disabled:bg-black disabled:text-white disabled:cursor-not-allowed'
+            >
+              Siguiente
+            </button>
+          </section>
         </section>
       </>
       break
