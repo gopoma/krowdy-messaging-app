@@ -195,8 +195,6 @@ export const CustomModal = () => {
     case 3: {
       component = <>
         <section>
-          <button onClick={_handleGoBack}>Go to 3</button>
-          <button onClick={_handleGoNext}>Go to 4</button>
         </section>
       </>
       break
