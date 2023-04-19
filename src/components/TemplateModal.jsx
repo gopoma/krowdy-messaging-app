@@ -15,14 +15,9 @@ const customStyles = {
 export const TemplateModal = ({ children }) => {
   const { isModalOpen, closeModal } = useModalStore()
 
-  const onCloseModal = () => {
-    closeModal()
-  }
-
   return (
     <Modal
       isOpen={ isModalOpen }
-      onRequestClose={ onCloseModal }
       style={ customStyles }
       className='modal'
       overlayClassName='modal-fondo'
