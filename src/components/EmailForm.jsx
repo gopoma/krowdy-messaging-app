@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { MessagingFormContext } from '../context/MessagingFormContext'
 import { LinkedListContext } from '../context/LinkedListContext'
 import {
   MessagingFormButtonsWrapper,
@@ -7,6 +8,12 @@ import {
 } from './'
 
 export const EmailForm = () => {
+  const {
+    email: { subject, message },
+    emailValid,
+    _handleMessagingFormTextInputChange
+  } = useContext(MessagingFormContext)
+
   const {
     lastPositionReached,
     _handleGoBack,
@@ -32,6 +39,9 @@ export const EmailForm = () => {
             type='text'
             placeholder='Escribe...'
             className='border border-slate-400 rounded p-2 text-xl'
+            name='subject'
+            value={subject}
+            onChange={_handleMessagingFormTextInputChange('email')}
           />
         </section>
         <section className='flex flex-col gap-2 text-xl'>
@@ -40,6 +50,9 @@ export const EmailForm = () => {
             placeholder='Escribe...'
             rows={4}
             className='w-full border border-slate-400 rounded p-2'
+            name='message'
+            value={message}
+            onChange={_handleMessagingFormTextInputChange('email')}
           ></textarea>
         </section>
       </MessagingFormInputsWrapper>
@@ -55,14 +68,14 @@ export const EmailForm = () => {
           lastPositionReached
             ? <button
                 onClick={ () => console.log('Enviar') }
-                disabled={ true }
+                disabled={ !emailValid }
                 className='border border-blue-400 bg-blue-400 hover:bg-blue-600 transition-colors text-white py-2 px-3 disabled:border-blue-200 disabled:bg-blue-200 disabled:cursor-not-allowed'
               >
                 Enviar
               </button>
             : <button
                 onClick={ _handleNextButtonClick }
-                disabled={ false }
+                disabled={ !emailValid }
                 className='border border-blue-400 bg-blue-400 hover:bg-blue-600 transition-colors text-white py-2 px-3 disabled:border-blue-200 disabled:bg-blue-200 disabled:cursor-not-allowed'
               >
                 Siguiente

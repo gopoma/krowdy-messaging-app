@@ -1,14 +1,27 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MessagingFormContext } from './MessagingFormContext'
 
 const initialState = {
   selectedTypeMessage: '',
-  selectedChannels: new Set()
+  selectedChannels: new Set(),
+  email: {
+    subject: '',
+    message: ''
+  },
+  emailValid: false,
+  text: {
+    message: ''
+  },
+  textValid: false,
+  whatsapp: {
+    message: ''
+  },
+  whatsappValid: false
 }
 
 export const MessagingFormProvider = ({ children }) => {
   const [messagingFormState, setMessagingFormState] = useState(initialState)
-  console.log(messagingFormState)
+  console.log(messagingFormState.email)
 
   const _handleSelectedTypeMessageElementChange = (messageType) => () => {
     setMessagingFormState((prevMessagingFormState) => {
@@ -40,6 +53,38 @@ export const MessagingFormProvider = ({ children }) => {
     })
   }
 
+  const _handleMessagingFormTextInputChange = (field) => ({ target }) => {
+    const { name, value } = target
+
+    setMessagingFormState((prevMessagingFormState) => {
+      const newMessagingFormState = structuredClone(prevMessagingFormState)
+
+      newMessagingFormState[field][name] = value
+
+      return newMessagingFormState
+    })
+  }
+
+  useEffect(() => {
+    setMessagingFormState((prevMessagingFormState) => {
+      const newMessagingFormState = structuredClone(prevMessagingFormState)
+
+      const { email: { subject, message } } = newMessagingFormState
+
+      if (subject.trim() === '' || message.trim() === '') {
+        return {
+          ...newMessagingFormState,
+          emailValid: false
+        }
+      }
+
+      return {
+        ...newMessagingFormState,
+        emailValid: true
+      }
+    })
+  }, [messagingFormState.email.subject, messagingFormState.email.message])
+
   return (
     <MessagingFormContext.Provider
       value={{
@@ -47,7 +92,8 @@ export const MessagingFormProvider = ({ children }) => {
         messagingFormState,
 
         _handleSelectedTypeMessageElementChange,
-        _handleChannelSelectionElementToggle
+        _handleChannelSelectionElementToggle,
+        _handleMessagingFormTextInputChange
       }}
     >
       { children }
