@@ -1,16 +1,13 @@
 import { useContext } from 'react'
+import { useModalStore } from '../hooks'
 import { MessagingFormContext } from '../context/MessagingFormContext'
 import { LinkedListContext } from '../context/LinkedListContext'
-import { useModalStore } from '../hooks'
+import { MessagingFormButtonsWrapper, MessagingFormInputsWrapper, MessagingFormSelectionInputWrapper, MessagingFormTitle } from './'
 
 export const TypeMessageForm = () => {
   const { closeModal } = useModalStore()
   const { selectedTypeMessage, _handleSelectedTypeMessageElementChange } = useContext(MessagingFormContext)
   const { _handleGoNext } = useContext(LinkedListContext)
-
-  const _handleChange = (messageType) => () => {
-    _handleSelectedTypeMessageElementChange(messageType)
-  }
 
   const _handleCancelButtonClick = () => {
     closeModal()
@@ -22,20 +19,17 @@ export const TypeMessageForm = () => {
 
   return (
     <>
-      <h3 className='text-2xl font-bold'>Selección del tipo de mensaje</h3>
+      <MessagingFormTitle title='Selección del tipo de mensaje' />
 
-      <section className='flex flex-col gap-2'>
-        <div
-          onClick={_handleChange('invitation')}
-          className='border border-slate-400 p-2 flex gap-2 items-center'
-        >
+      <MessagingFormInputsWrapper>
+        <MessagingFormSelectionInputWrapper>
           <input
             type='radio'
             name='messageType'
             value='invitation'
             id='invitation'
             checked={selectedTypeMessage === 'invitation'}
-            onChange={_handleChange('invitation')}
+            onChange={_handleSelectedTypeMessageElementChange('invitation')}
             className='border border-slate-400'
           />
           <label
@@ -44,18 +38,15 @@ export const TypeMessageForm = () => {
           >
             Invitación
           </label>
-        </div>
-        <div
-          onClick={_handleChange('reminder')}
-          className='border border-slate-400 p-2 flex gap-2 items-center'
-        >
+        </MessagingFormSelectionInputWrapper>
+        <MessagingFormSelectionInputWrapper>
           <input
             type='radio'
             name='messageType'
             value='reminder'
             id='reminder'
             checked={selectedTypeMessage === 'reminder'}
-            onChange={_handleChange('reminder')}
+            onChange={_handleSelectedTypeMessageElementChange('reminder')}
             className='border border-slate-400'
           />
           <label
@@ -64,18 +55,15 @@ export const TypeMessageForm = () => {
           >
             Recordatorio de proceso
           </label>
-        </div>
-        <div
-          onClick={_handleChange('custom')}
-          className='border border-slate-400 p-2 flex gap-2 items-center'
-        >
+        </MessagingFormSelectionInputWrapper>
+        <MessagingFormSelectionInputWrapper>
           <input
             type='radio'
             name='messageType'
             value='custom'
             id='custom'
             checked={selectedTypeMessage === 'custom'}
-            onChange={_handleChange('custom')}
+            onChange={_handleSelectedTypeMessageElementChange('custom')}
             className='border border-slate-400'
           />
           <label
@@ -84,10 +72,10 @@ export const TypeMessageForm = () => {
           >
             Personalizado
           </label>
-        </div>
-      </section>
+        </MessagingFormSelectionInputWrapper>
+      </MessagingFormInputsWrapper>
 
-      <section className='flex justify-end gap-2'>
+      <MessagingFormButtonsWrapper>
         <button
           className='border border-blue-400 py-2 px-3 text-blue-400 hover:bg-blue-400 hover:text-white transition-colors'
           onClick={ _handleCancelButtonClick }
@@ -101,7 +89,7 @@ export const TypeMessageForm = () => {
         >
           Siguiente
         </button>
-      </section>
+      </MessagingFormButtonsWrapper>
     </>
   )
 }

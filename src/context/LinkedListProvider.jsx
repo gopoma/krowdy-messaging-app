@@ -6,6 +6,7 @@ export const LinkedListProvider = ({ children }) => {
   const [position, setPosition] = useState(0) // 0 - 1 - 2 - 3 - 4
   const [length, setLength] = useState(WITHOUT_ITEMS) // 5
   const [forbiddenPositions, setForbiddenPositions] = useState(new Set())
+  console.log(forbiddenPositions)
 
   const firstPositionReached = useMemo(() => {
     if (forbiddenPositions.size === length) return false
@@ -52,7 +53,7 @@ export const LinkedListProvider = ({ children }) => {
 
       newForbiddenPositions.add(newForbiddenPosition)
 
-      setForbiddenPositions(newForbiddenPositions)
+      return newForbiddenPositions
     })
   }
 
@@ -64,7 +65,7 @@ export const LinkedListProvider = ({ children }) => {
 
       newForbiddenPositions.delete(forbiddenPosition)
 
-      setForbiddenPositions(newForbiddenPositions)
+      return newForbiddenPositions
     })
   }
 

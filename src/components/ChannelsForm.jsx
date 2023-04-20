@@ -1,88 +1,114 @@
-import { useState } from 'react'
+import { useContext, useEffect } from 'react'
+import { LinkedListContext } from '../context/LinkedListContext'
+import { MessagingFormContext } from '../context/MessagingFormContext'
+import {
+  MessagingFormTitle,
+  MessagingFormInputsWrapper,
+  MessagingFormButtonsWrapper,
+  MessagingFormSelectionInputWrapper
+} from './'
+
+const channels = ['email', 'text', 'whatsapp']
+const forbiddenActivatorsMapping = {
+  email: 2,
+  text: 3,
+  whatsapp: 4
+}
 
 export const ChannelsForm = () => {
-  const [position, setPosition] = useState(1)
-  const [selectedChannels, setSelectedChannels] = useState(new Set())
+  const {
+    _handleAddForbiddenPosition,
+    _handleDeleteForbiddenPosition,
+    _handleGoBack,
+    _handleGoNext
+  } = useContext(LinkedListContext)
+  const { selectedChannels, _handleChannelSelectionElementToggle } = useContext(MessagingFormContext)
 
-  const _handleToggleSelectedChannel = (channel) => () => {
-    setSelectedChannels((prevSelectedChannels) => {
-      const tmp = new Set(prevSelectedChannels)
-
-      if (tmp.has(channel)) {
-        tmp.delete(channel)
+  useEffect(() => {
+    channels.forEach((channel) => {
+      if (selectedChannels.has(channel)) {
+        _handleDeleteForbiddenPosition(forbiddenActivatorsMapping[channel])
       } else {
-        tmp.add(channel)
+        _handleAddForbiddenPosition(forbiddenActivatorsMapping[channel])
       }
-
-      return new Set(tmp)
     })
+  }, [selectedChannels])
+
+  const _handleGoBackButtonClick = () => {
+    _handleGoBack()
   }
 
-  const _handleGoNext = () => {
-    setPosition((prevPosition) => {
-      return (prevPosition === 5) ? 5 : prevPosition + 1
-    })
-  }
-
-  const _handleGoBack = () => {
-    setPosition((prevPosition) => {
-      return (prevPosition === 0) ? 0 : prevPosition - 1
-    })
+  const _handleNextButtonClick = () => {
+    _handleGoNext()
   }
 
   return (
     <>
-      <h3>Selección de canales</h3>
-      <section>
-        <div
-          onClick={_handleToggleSelectedChannel('email')}
-        >
+      <MessagingFormTitle title='Selección de canales' />
+
+      <MessagingFormInputsWrapper>
+        <MessagingFormSelectionInputWrapper>
           <input
             type='checkbox'
             id='email'
             checked={selectedChannels.has('email')}
-            onChange={_handleToggleSelectedChannel('email')}
+            onChange={_handleChannelSelectionElementToggle('email')}
+            className='w-4 h-4 border border-slate-400'
           />
-          <label>Correo electrónico</label>
-        </div>
-        <div
-          onClick={_handleToggleSelectedChannel('text')}
-        >
+          <label
+            htmlFor='email'
+            className='text-lg text-slate-400'
+          >
+            Correo electrónico
+          </label>
+        </MessagingFormSelectionInputWrapper>
+        <MessagingFormSelectionInputWrapper>
           <input
             type='checkbox'
             id='text'
             checked={selectedChannels.has('text')}
-            onChange={_handleToggleSelectedChannel('text')}
+            onChange={_handleChannelSelectionElementToggle('text')}
+            className='w-4 h-4 border border-slate-400'
           />
-          <label htmlFor='textMessage'>Mensaje de texto</label>
-        </div>
-        <div
-          onClick={_handleToggleSelectedChannel('whatsapp')}
-        >
+          <label
+            htmlFor='text'
+            className='text-lg text-slate-400'
+          >
+            Mensaje de texto
+          </label>
+        </MessagingFormSelectionInputWrapper>
+        <MessagingFormSelectionInputWrapper>
           <input
             type='checkbox'
             id='whatsapp'
             checked={selectedChannels.has('whatsapp')}
-            onChange={_handleToggleSelectedChannel('whatsapp')}
+            onChange={_handleChannelSelectionElementToggle('whatsapp')}
+            className='w-4 h-4 border border-slate-400'
           />
-          <label htmlFor='whatsapp'>Whatsapp</label>
-        </div>
-      </section>
-      <section className='flex justify-end gap-2'>
+          <label
+            htmlFor='whatsapp'
+            className='text-lg text-slate-400'
+          >
+            Whatsapp
+          </label>
+        </MessagingFormSelectionInputWrapper>
+      </MessagingFormInputsWrapper>
+
+      <MessagingFormButtonsWrapper>
         <button
-          onClick={_handleGoBack}
-          className='px-3 py-2 bg-slate-400'
+          className='border border-blue-400 py-2 px-3 text-blue-400 hover:bg-blue-400 hover:text-white transition-colors'
+          onClick={ _handleGoBackButtonClick }
         >
           Atrás
         </button>
         <button
-          disabled={selectedChannels.size === 0}
-          onClick={_handleGoNext}
-          className='px-3 py-2 bg-slate-400 disabled:bg-black disabled:text-white disabled:cursor-not-allowed'
+          onClick={ _handleNextButtonClick }
+          disabled={ selectedChannels.size === 0 }
+          className='border border-blue-400 bg-blue-400 hover:bg-blue-600 transition-colors text-white py-2 px-3 disabled:border-blue-200 disabled:bg-blue-200 disabled:cursor-not-allowed'
         >
           Siguiente
         </button>
-      </section>
+      </MessagingFormButtonsWrapper>
     </>
   )
 }

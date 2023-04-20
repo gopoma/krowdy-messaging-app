@@ -6,10 +6,9 @@ import { EmailForm } from './EmailForm'
 import { TextMessageForm } from './TextMessageForm'
 import { WhatsappForm } from './WhatsappForm'
 
-// eslint-disable-next-line
-const steps = [<TypeMessageForm />, <ChannelsForm />, <EmailForm />, <TextMessageForm />, <WhatsappForm />]
-
 export const MessagingForm = () => {
+  // eslint-disable-next-line
+  const steps = [<TypeMessageForm />, <ChannelsForm />, <EmailForm />, <TextMessageForm />, <WhatsappForm />]
   const { position, _handleLengthChange } = useContext(LinkedListContext)
 
   useEffect(() => {
