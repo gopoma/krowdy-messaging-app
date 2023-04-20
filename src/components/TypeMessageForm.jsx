@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useModalStore } from '../hooks'
 
 export const TypeMessageForm = () => {
-  const [position, setPosition] = useState(1)
   const { closeModal } = useModalStore()
   const [selectedMessageType, setSelectedMessageType] = useState('')
 
@@ -10,14 +9,12 @@ export const TypeMessageForm = () => {
     setSelectedMessageType(messageType)
   }
 
-  const _handleCloseModal = () => {
+  const _handleCancelButtonClick = () => {
     closeModal()
   }
 
-  const _handleGoNext = () => {
-    setPosition((prevPosition) => {
-      return (prevPosition === 5) ? 5 : prevPosition + 1
-    })
+  const _handleNextButtonClick = () => {
+
   }
 
   return (
@@ -90,13 +87,13 @@ export const TypeMessageForm = () => {
       <section className='flex justify-end gap-2'>
         <button
           className='border border-blue-400 py-2 px-3 text-blue-400 hover:bg-blue-400 hover:text-white transition-colors'
-          onClick={ _handleCloseModal }
+          onClick={ _handleCancelButtonClick }
         >
           Cancelar
         </button>
         <button
-          onClick={_handleGoNext}
-          disabled={selectedMessageType === ''}
+          onClick={ _handleNextButtonClick }
+          disabled={ selectedMessageType === '' }
           className='border border-blue-400 bg-blue-400 hover:bg-blue-600 transition-colors text-white py-2 px-3 disabled:border-blue-200 disabled:bg-blue-200 disabled:cursor-not-allowed'
         >
           Siguiente

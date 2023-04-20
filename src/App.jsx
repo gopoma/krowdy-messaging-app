@@ -7,10 +7,8 @@ import { MessagingPage } from './pages'
 function App () {
   return (
     <Provider store={ store }>
-      <>
-        <MessagingPage />
-        <CustomModal />
-      </>
+      <MessagingPage />
+      <CustomModal />
     </Provider>
   )
 }

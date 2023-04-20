@@ -14,7 +14,6 @@ export const modalSlice = createSlice({
     },
     onCloseModal: (state) => {
       state.isModalOpen = false
-      state.component = ''
     }
   }
 })

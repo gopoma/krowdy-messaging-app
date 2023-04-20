@@ -1,19 +1,27 @@
 import { useModalStore } from '../hooks/useModalStore'
+import { LinkedListProvider } from '../context/LinkedListProvider'
 import { TemplateModal, MessasingForm } from './'
 
 export const CustomModal = () => {
   const { component } = useModalStore()
 
+  let $component
+
   switch (component) {
     case 'MessasingForm': {
-      return (
-        <TemplateModal>
+      $component = (
+        <LinkedListProvider>
           <MessasingForm />
-        </TemplateModal>
+        </LinkedListProvider>
       )
+      break
     }
     default: {
-      return <section>No Component Rendered Yet</section>
+      $component = (<section>No Component Rendered Yet</section>)
     }
   }
+
+  return (
+    <TemplateModal>{ $component }</TemplateModal>
+  )
 }

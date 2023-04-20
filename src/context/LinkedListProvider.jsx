@@ -1,12 +1,9 @@
 import { useMemo, useState } from 'react'
 import { LinkedListContext } from './LinkedListContext'
-
-const NOT_FOUND = -16
-const UNINITIALIZED = -25
-const WITHOUT_ITEMS = 0
+import { NOT_FOUND, WITHOUT_ITEMS } from '../constants'
 
 export const LinkedListProvider = ({ children }) => {
-  const [position, setPosition] = useState(UNINITIALIZED) // 0 - 1 - 2 - 3 - 4
+  const [position, setPosition] = useState(0) // 0 - 1 - 2 - 3 - 4
   const [length, setLength] = useState(WITHOUT_ITEMS) // 5
   const [forbiddenPositions, setForbiddenPositions] = useState(new Set())
 
