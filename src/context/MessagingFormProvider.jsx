@@ -21,7 +21,6 @@ const initialState = {
 
 export const MessagingFormProvider = ({ children }) => {
   const [messagingFormState, setMessagingFormState] = useState(initialState)
-  console.log(messagingFormState.email, messagingFormState.text, messagingFormState.whatsapp)
 
   const _handleSelectedTypeMessageElementChange = (messageType) => () => {
     setMessagingFormState((prevMessagingFormState) => {

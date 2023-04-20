@@ -4,6 +4,7 @@ import { LinkedListContext } from '../context/LinkedListContext'
 import {
   MessagingFormButtonsWrapper,
   MessagingFormInputsWrapper,
+  MessagingFormSubmitButton,
   MessagingFormTitle
 } from './'
 
@@ -66,13 +67,7 @@ export const EmailForm = () => {
         </button>
         {
           lastPositionReached
-            ? <button
-                onClick={ () => console.log('Enviar') }
-                disabled={ !emailValid }
-                className='border border-blue-400 bg-blue-400 hover:bg-blue-600 transition-colors text-white py-2 px-3 disabled:border-blue-200 disabled:bg-blue-200 disabled:cursor-not-allowed'
-              >
-                Enviar
-              </button>
+            ? <MessagingFormSubmitButton disabled={ !emailValid } />
             : <button
                 onClick={ _handleNextButtonClick }
                 disabled={ !emailValid }
