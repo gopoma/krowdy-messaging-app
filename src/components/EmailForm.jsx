@@ -57,7 +57,7 @@ export const EmailForm = () => {
           lastPositionReached
             ? <button
                 onClick={ () => console.log('Enviar') }
-                disabled={ false }
+                disabled={ true }
                 className='border border-blue-400 bg-blue-400 hover:bg-blue-600 transition-colors text-white py-2 px-3 disabled:border-blue-200 disabled:bg-blue-200 disabled:cursor-not-allowed'
               >
                 Enviar
