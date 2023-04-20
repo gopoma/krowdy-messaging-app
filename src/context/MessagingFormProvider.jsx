@@ -34,6 +34,66 @@ export const MessagingFormProvider = ({ children }) => {
     })
   }
 
+  useEffect(() => {
+    setMessagingFormState((prevMessagingFormState) => {
+      const newMessagingFormState = structuredClone(prevMessagingFormState)
+
+      const { selectedTypeMessage } = newMessagingFormState
+
+      switch (selectedTypeMessage) {
+        case 'invitation': {
+          const message = 'Hola [userName], hemos visto tu perfil y nos parece interesante. Encuentra más información aquí: [Link]'
+
+          return {
+            ...newMessagingFormState,
+            email: {
+              subject: 'Invitación a proceso',
+              message
+            },
+            text: {
+              message
+            },
+            whatsapp: {
+              message
+            }
+          }
+        }
+        case 'reminder': {
+          const message = 'Hola [userName] nos gustaría recordarte que tienes pendiente un proceso. Entra aquí para continuar [Link]'
+
+          return {
+            ...newMessagingFormState,
+            email: {
+              subject: 'Recordatorio de proceso',
+              message
+            },
+            text: {
+              message
+            },
+            whatsapp: {
+              message
+            }
+          }
+        }
+        default: {
+          return {
+            ...newMessagingFormState,
+            email: {
+              subject: '',
+              message: ''
+            },
+            text: {
+              message: ''
+            },
+            whatsapp: {
+              message: ''
+            }
+          }
+        }
+      }
+    })
+  }, [messagingFormState.selectedTypeMessage])
+
   const _handleChannelSelectionElementToggle = (channel) => () => {
     setMessagingFormState((prevMessagingFormState) => {
       const newSelectedChannels = new Set(prevMessagingFormState.selectedChannels)
