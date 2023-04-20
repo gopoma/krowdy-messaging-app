@@ -13,7 +13,7 @@ const customStyles = {
 }
 
 export const TemplateModal = ({ children }) => {
-  const { isModalOpen, closeModal } = useModalStore()
+  const { isModalOpen } = useModalStore()
 
   return (
     <Modal
