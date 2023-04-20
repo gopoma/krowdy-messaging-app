@@ -21,7 +21,7 @@ const initialState = {
 
 export const MessagingFormProvider = ({ children }) => {
   const [messagingFormState, setMessagingFormState] = useState(initialState)
-  console.log(messagingFormState.text)
+  console.log(messagingFormState.email, messagingFormState.text, messagingFormState.whatsapp)
 
   const _handleSelectedTypeMessageElementChange = (messageType) => () => {
     setMessagingFormState((prevMessagingFormState) => {
@@ -104,6 +104,26 @@ export const MessagingFormProvider = ({ children }) => {
       }
     })
   }, [messagingFormState.text.message])
+
+  useEffect(() => {
+    setMessagingFormState((prevMessagingFormState) => {
+      const newMessagingFormState = structuredClone(prevMessagingFormState)
+
+      const { whatsapp: { message } } = newMessagingFormState
+
+      if (message.trim() === '') {
+        return {
+          ...newMessagingFormState,
+          whatsappValid: false
+        }
+      }
+
+      return {
+        ...newMessagingFormState,
+        whatsappValid: true
+      }
+    })
+  }, [messagingFormState.whatsapp.message])
 
   return (
     <MessagingFormContext.Provider
