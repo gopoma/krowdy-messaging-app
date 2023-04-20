@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { LinkedListContext } from './LinkedListContext'
 import { NOT_FOUND, WITHOUT_ITEMS } from '../constants'
 
@@ -23,25 +23,26 @@ export const LinkedListProvider = ({ children }) => {
 
   const lastPositionReached = useMemo(() => {
     if (forbiddenPositions.size === 0) return true
+    return false
   }, [position])
 
   const _handleLengthChange = (newLength) => {
     if (newLength < 0) return
 
-    setLength((prevLength) => {
-      setForbiddenPositions((prevForbiddenPositions) => {
-        const newForbiddenPositions = new Set(prevForbiddenPositions)
-
-        if (newLength < prevLength) {
-          for (let i = newLength - 1; i < prevLength - 1; i++) {
-            newForbiddenPositions.delete(i)
-          }
-        }
-
-        return newForbiddenPositions
-      })
-    })
+    setLength(newLength)
   }
+
+  useEffect(() => {
+    setForbiddenPositions((prevForbiddenPositions) => {
+      const newForbiddenPositions = new Set(prevForbiddenPositions)
+
+      newForbiddenPositions.forEach((position) => {
+        if (position >= length) newForbiddenPositions.delete(position)
+      })
+
+      return newForbiddenPositions
+    })
+  }, [length])
 
   const _handleAddForbiddenPosition = (newForbiddenPosition) => {
     if (newForbiddenPosition < 0 || newForbiddenPosition > length - 1) return
@@ -74,6 +75,7 @@ export const LinkedListProvider = ({ children }) => {
       for (let i = prevPosition + 1; i < length; i++) {
         if (!forbiddenPositions.has(i)) {
           nextNotForbiddenPosition = i
+          break
         }
       }
 
@@ -88,6 +90,7 @@ export const LinkedListProvider = ({ children }) => {
       for (let i = prevPosition - 1; i >= 0; i--) {
         if (!forbiddenPositions.has(prevPosition)) {
           previousNotForbiddenPosition = i
+          break
         }
       }
 

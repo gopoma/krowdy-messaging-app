@@ -6,7 +6,8 @@ import { EmailForm } from './EmailForm'
 import { TextMessageForm } from './TextMessageForm'
 import { WhatsappForm } from './WhatsappForm'
 
-const steps = [TypeMessageForm, ChannelsForm, EmailForm, TextMessageForm, WhatsappForm]
+// eslint-disable-next-line
+const steps = [<TypeMessageForm />, <ChannelsForm />, <EmailForm />, <TextMessageForm />, <WhatsappForm />]
 
 export const MessasingForm = () => {
   const { position, _handleLengthChange } = useContext(LinkedListContext)
@@ -17,7 +18,7 @@ export const MessasingForm = () => {
 
   return (
     <section className='p-4 flex flex-col gap-4'>
-      { steps[position]() }
+      { steps[position] }
     </section>
   )
 }

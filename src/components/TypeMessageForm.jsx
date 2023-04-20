@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { LinkedListContext } from '../context/LinkedListContext'
 import { useModalStore } from '../hooks'
 
 export const TypeMessageForm = () => {
   const { closeModal } = useModalStore()
+  const { _handleGoNext } = useContext(LinkedListContext)
   const [selectedMessageType, setSelectedMessageType] = useState('')
 
   const _handleSelectedMessateTypeChange = (messageType) => () => {
@@ -14,7 +16,7 @@ export const TypeMessageForm = () => {
   }
 
   const _handleNextButtonClick = () => {
-
+    _handleGoNext()
   }
 
   return (
