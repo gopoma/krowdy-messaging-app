@@ -1,6 +1,7 @@
 import { useModalStore } from '../hooks/useModalStore'
 import { LinkedListProvider } from '../context/LinkedListProvider'
-import { TemplateModal, MessasingForm } from './'
+import { MessagingFormProvider } from '../context/MessagingFormProvider'
+import { TemplateModal, MessagingForm } from './'
 
 export const CustomModal = () => {
   const { component } = useModalStore()
@@ -8,11 +9,13 @@ export const CustomModal = () => {
   let $component
 
   switch (component) {
-    case 'MessasingForm': {
+    case 'MessagingForm': {
       $component = (
-        <LinkedListProvider>
-          <MessasingForm />
-        </LinkedListProvider>
+        <MessagingFormProvider>
+          <LinkedListProvider>
+            <MessagingForm />
+          </LinkedListProvider>
+        </MessagingFormProvider>
       )
       break
     }

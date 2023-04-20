@@ -1,14 +1,15 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
+import { MessagingFormContext } from '../context/MessagingFormContext'
 import { LinkedListContext } from '../context/LinkedListContext'
 import { useModalStore } from '../hooks'
 
 export const TypeMessageForm = () => {
   const { closeModal } = useModalStore()
+  const { selectedTypeMessage, _handleSelectedTypeMessageElementChange } = useContext(MessagingFormContext)
   const { _handleGoNext } = useContext(LinkedListContext)
-  const [selectedMessageType, setSelectedMessageType] = useState('')
 
-  const _handleSelectedMessateTypeChange = (messageType) => () => {
-    setSelectedMessageType(messageType)
+  const _handleChange = (messageType) => () => {
+    _handleSelectedTypeMessageElementChange(messageType)
   }
 
   const _handleCancelButtonClick = () => {
@@ -25,7 +26,7 @@ export const TypeMessageForm = () => {
 
       <section className='flex flex-col gap-2'>
         <div
-          onClick={_handleSelectedMessateTypeChange('invitation')}
+          onClick={_handleChange('invitation')}
           className='border border-slate-400 p-2 flex gap-2 items-center'
         >
           <input
@@ -33,8 +34,8 @@ export const TypeMessageForm = () => {
             name='messageType'
             value='invitation'
             id='invitation'
-            checked={selectedMessageType === 'invitation'}
-            onChange={_handleSelectedMessateTypeChange('invitation')}
+            checked={selectedTypeMessage === 'invitation'}
+            onChange={_handleChange('invitation')}
             className='border border-slate-400'
           />
           <label
@@ -45,7 +46,7 @@ export const TypeMessageForm = () => {
           </label>
         </div>
         <div
-          onClick={_handleSelectedMessateTypeChange('reminder')}
+          onClick={_handleChange('reminder')}
           className='border border-slate-400 p-2 flex gap-2 items-center'
         >
           <input
@@ -53,8 +54,8 @@ export const TypeMessageForm = () => {
             name='messageType'
             value='reminder'
             id='reminder'
-            checked={selectedMessageType === 'reminder'}
-            onChange={_handleSelectedMessateTypeChange('reminder')}
+            checked={selectedTypeMessage === 'reminder'}
+            onChange={_handleChange('reminder')}
             className='border border-slate-400'
           />
           <label
@@ -65,7 +66,7 @@ export const TypeMessageForm = () => {
           </label>
         </div>
         <div
-          onClick={_handleSelectedMessateTypeChange('custom')}
+          onClick={_handleChange('custom')}
           className='border border-slate-400 p-2 flex gap-2 items-center'
         >
           <input
@@ -73,8 +74,8 @@ export const TypeMessageForm = () => {
             name='messageType'
             value='custom'
             id='custom'
-            checked={selectedMessageType === 'custom'}
-            onChange={_handleSelectedMessateTypeChange('custom')}
+            checked={selectedTypeMessage === 'custom'}
+            onChange={_handleChange('custom')}
             className='border border-slate-400'
           />
           <label
@@ -95,7 +96,7 @@ export const TypeMessageForm = () => {
         </button>
         <button
           onClick={ _handleNextButtonClick }
-          disabled={ selectedMessageType === '' }
+          disabled={ selectedTypeMessage === '' }
           className='border border-blue-400 bg-blue-400 hover:bg-blue-600 transition-colors text-white py-2 px-3 disabled:border-blue-200 disabled:bg-blue-200 disabled:cursor-not-allowed'
         >
           Siguiente

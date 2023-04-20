@@ -16,7 +16,7 @@ export const MessagingPage = () => {
   }
 
   const _handleSendMessageElementClick = () => {
-    openModal('MessasingForm')
+    openModal('MessagingForm')
   }
 
   return (
