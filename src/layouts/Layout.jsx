@@ -1,7 +1,9 @@
 export const Layout = ({ children }) => {
   return (
-    <section className='max-w-[1000px] h-screen m-auto bg-slate-100'>
-      { children }
+    <section className='bg-slate-100 min-h-screen'>
+      <section className='max-w-[1000px] m-auto'>
+        { children }
+      </section>
     </section>
   )
 }
