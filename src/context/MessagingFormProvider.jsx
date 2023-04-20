@@ -21,7 +21,7 @@ const initialState = {
 
 export const MessagingFormProvider = ({ children }) => {
   const [messagingFormState, setMessagingFormState] = useState(initialState)
-  console.log(messagingFormState.email)
+  console.log(messagingFormState.text)
 
   const _handleSelectedTypeMessageElementChange = (messageType) => () => {
     setMessagingFormState((prevMessagingFormState) => {
@@ -84,6 +84,26 @@ export const MessagingFormProvider = ({ children }) => {
       }
     })
   }, [messagingFormState.email.subject, messagingFormState.email.message])
+
+  useEffect(() => {
+    setMessagingFormState((prevMessagingFormState) => {
+      const newMessagingFormState = structuredClone(prevMessagingFormState)
+
+      const { text: { message } } = newMessagingFormState
+
+      if (message.trim() === '') {
+        return {
+          ...newMessagingFormState,
+          textValid: false
+        }
+      }
+
+      return {
+        ...newMessagingFormState,
+        textValid: true
+      }
+    })
+  }, [messagingFormState.text.message])
 
   return (
     <MessagingFormContext.Provider
