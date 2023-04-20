@@ -46,13 +46,13 @@ export const ChannelsForm = () => {
           <label>Correo electrónico</label>
         </div>
         <div
-          onClick={_handleToggleSelectedChannel('textMessage')}
+          onClick={_handleToggleSelectedChannel('text')}
         >
           <input
             type='checkbox'
-            id='textMessage'
-            checked={selectedChannels.has('textMessage')}
-            onChange={_handleToggleSelectedChannel('textMessage')}
+            id='text'
+            checked={selectedChannels.has('text')}
+            onChange={_handleToggleSelectedChannel('text')}
           />
           <label htmlFor='textMessage'>Mensaje de texto</label>
         </div>

@@ -1,0 +1,48 @@
+steps = [TypeMessageForm, ChannelsForm, ]
+
+<MessasingFormProvider
+  const [maxLength, setMaxLength] = useState(0)
+  const maxLengthReached = useMemo(() => position === maxLength, [position])
+
+  value={{
+    position: 0,
+    maxLength,
+    maxLengthReached
+
+    _handleMaxLengthChanged,
+    _handleGoNext,
+    _handleGoBack
+  }}
+>
+  <MessasingForm>
+    steps = [FirstForm, SecondForm, ThirdForm, FourthForm, FifthFormView]
+    isLast = useMemo(() => )
+
+
+    <>
+      { steps[position]() }
+    </>
+  </MessasingForm>
+</MessasingFormProvider>
+
+Redux's State
+reminders: []
+
+Context's State
+{
+  selectedTypeMessage: 'invitation' | 'reminder' | 'custom',
+  selectedChannels: ['email'?, 'text'?, 'whatsapp'?],
+  isLastElement = position === selectedChannels.length - 1
+}
+
+hasSelectedChannels = selectedChannels.length !== 0
+
+{
+  position: 0,
+  bannedPositions: []
+}
+
+_handleGoTo        = (position) => {}
+_handleGoNext      = () => {}
+_handleGoBack      = () => {}
+_handleBanPosition = (position) => {}
