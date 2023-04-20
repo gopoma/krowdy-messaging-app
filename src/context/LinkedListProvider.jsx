@@ -83,7 +83,7 @@ export const LinkedListProvider = ({ children }) => {
       let previousNotForbiddenPosition = NOT_FOUND
 
       for (let i = prevPosition - 1; i >= 0; i--) {
-        if (!forbiddenPositions.has(prevPosition)) {
+        if (!forbiddenPositions.has(i)) {
           previousNotForbiddenPosition = i
           break
         }
