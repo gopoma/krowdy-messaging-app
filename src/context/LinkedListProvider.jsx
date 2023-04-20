@@ -6,24 +6,9 @@ export const LinkedListProvider = ({ children }) => {
   const [position, setPosition] = useState(0) // 0 - 1 - 2 - 3 - 4
   const [length, setLength] = useState(WITHOUT_ITEMS) // 5
   const [forbiddenPositions, setForbiddenPositions] = useState(new Set())
-
-  const firstPositionReached = useMemo(() => {
-    if (forbiddenPositions.size === length) return false
-
-    let firstNotForbiddenPosition
-
-    for (let i = 0; i < length; i++) {
-      if (!forbiddenPositions.has(i)) {
-        firstNotForbiddenPosition = i
-      }
-    }
-
-    return position === firstNotForbiddenPosition
-  }, [position])
+  console.log({ position, length, forbiddenPositions })
 
   const lastPositionReached = useMemo(() => {
-    if (forbiddenPositions.size === 0) return true
-
     let lastNotForbiddenPosition
 
     for (let i = length - 1; i >= 0; i--) {
@@ -112,7 +97,6 @@ export const LinkedListProvider = ({ children }) => {
     <LinkedListContext.Provider
       value={{
         position,
-        firstPositionReached,
         lastPositionReached,
 
         _handleLengthChange,

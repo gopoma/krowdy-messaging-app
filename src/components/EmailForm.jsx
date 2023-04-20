@@ -13,8 +13,6 @@ export const EmailForm = () => {
     _handleGoNext
   } = useContext(LinkedListContext)
 
-  console.log(lastPositionReached)
-
   const _handleGoBackButtonClick = () => {
     _handleGoBack()
   }
