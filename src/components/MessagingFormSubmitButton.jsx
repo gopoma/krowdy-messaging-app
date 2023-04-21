@@ -27,6 +27,8 @@ export const MessagingFormSubmitButton = ({ ...props }) => {
 
     await messagesServ.sendAllMessages({ receivers, messagingFormData })
 
+    window.alert('Have a look to the JavaScript\'s Console')
+
     closeModal()
   }
 
