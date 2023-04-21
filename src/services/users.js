@@ -1,12 +1,5 @@
 import { users } from '../mocks'
-
-const sleep = (ms) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve()
-    }, [ms])
-  })
-}
+import { sleep } from '../helpers'
 
 export class UsersService {
   async getAll () {
