@@ -47,6 +47,6 @@ export class MessagesService {
     })
 
     const results = await Promise.all(compountPromises)
-    console.log(results)
+    console.log('MessagingService\'s sendAllMessages results:', results)
   }
 }
