@@ -1,6 +1,6 @@
 # krowdy-messaging-app
 
-Aplicación de mensajería masiva por **Email**, **Mensaje de Texto** y **Whatsapp**, desarrollado con React.
+Implementación a nivel del Front End de una aplicación de mensajería masiva por **Email**, **Mensaje de Texto** y **Whatsapp**, desarrollado con React.
 
 ## Getting Started
 
