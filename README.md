@@ -16,8 +16,15 @@ Finalmente, corre el servidor de **desarrollo**:
 make dev # npm run dev
 ```
 
+Puedes correr el linter con el siguiente comando:
+
+```bash
+make lint # npm run lint
+```
+
 Puedes correr un servidor en un ambiente de **producción** con el siguiente comando:
 
 ```bash
-make prod
+make prod # Correrlo en un contenedor de Docker con NGINX
+npm run build && npm run preview # Correrlo en nuestro entorno local
 ```
