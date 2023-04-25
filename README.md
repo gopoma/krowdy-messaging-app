@@ -7,7 +7,7 @@ Aplicación de mensajería masiva por **Email**, **Mensaje de Texto** y **Whatsa
 En primera instancia, instala todas las **dependencias** del proyecto con el siguiente comando:
 
 ```bash
-make install # npm run install
+make install # npm install
 ```
 
 Finalmente, corre el servidor de **desarrollo**:
