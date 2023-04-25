@@ -1,3 +1,7 @@
+install:
+	npm install
+dev:
+	npm run dev
 prod-build:
 	docker compose build
 prod:
